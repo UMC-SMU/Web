@@ -1,3 +1,5 @@
+const $commentForm = document.querySelector("#commentInputContainer");
+const $commentInput = document.querySelector("#commentInput");
 const $commentList = document.querySelector('#commentsList');
 
 const commentItemTemplate = (newComment) => { 
@@ -27,6 +29,17 @@ const commentItemTemplate = (newComment) => {
 	`;
 }
 
-const newComment = commentItemTemplate('안녕하세요.반갑습니다');
+// const newComment = commentItemTemplate('안녕하세요.반갑습니다');
+// $commentList.insertAdjacentHTML('afterbegin', newComment);
 
-$commentList.insertAdjacentHTML('afterbegin', newComment);
+$commentForm.addEventListener('submit', handleSumbit);
+
+function handleSumbit(event){
+	event.preventDefault(); // 새로고침 방지
+	const newComment = $commentInput.value; // 새 댓글
+
+	if (!newComment) {return}; // 댓글창이 비어있을 때 댓글 추가 안 됨(예외 처리)
+	const newCommentItem = commentItemTemplate(newComment);
+	$commentList.insertAdjacentHTML('afterbegin', newCommentItem); // 새 댓글 맨 위에 추가
+  $commentInput.value = ""; // 댓글 추가 후 댓글창 초기화
+}
