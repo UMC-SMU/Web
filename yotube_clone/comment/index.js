@@ -34,6 +34,28 @@ const commentItemTemplate = (newComment) => {
 
 $commentForm.addEventListener('submit', handleSumbit);
 
+const comments = [];
+
+function saveItem() {
+	localStorage.setItem('comments', JSON.stringify(comments)); // 로컬스토리지 저장
+}
+
+function displayHistory() { // 새로고침 후 화면의 댓글 사라지지 않게
+	const savedComments = JSON.parse(localStorage.getItem('comments'));
+
+	savedComments.map(comment => {
+		const newCommentItem = commentItemTemplate(comment);
+		comments.push(comment);
+		$commentList.insertAdjacentHTML('afterbegin', newCommentItem);
+	})
+}
+
+displayHistory();
+
+// const savedComments = localStorage.getItem('comments');
+// console.log(typeof savedComments); // string
+// console.log(savedComments[0]); // 배열의 요소가 아닌 문자열의 요소 출력됨
+
 function handleSumbit(event){
 	event.preventDefault(); // 새로고침 방지
 	const newComment = $commentInput.value; // 새 댓글
@@ -41,5 +63,8 @@ function handleSumbit(event){
 	if (!newComment) {return}; // 댓글창이 비어있을 때 댓글 추가 안 됨(예외 처리)
 	const newCommentItem = commentItemTemplate(newComment);
 	$commentList.insertAdjacentHTML('afterbegin', newCommentItem); // 새 댓글 맨 위에 추가
-  $commentInput.value = ""; // 댓글 추가 후 댓글창 초기화
+    $commentInput.value = ""; // 댓글 추가 후 댓글창 초기화
+
+	comments.push(newComment); // 새 댓글이 추가될 때마다 배열에 추가
+	saveItem();
 }
