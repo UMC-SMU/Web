@@ -1,0 +1,22 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "🕸 UMC 2기 Web 스터디",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSH99/Web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JSH99/Web/issues"
+  },
+  "homepage": "https://github.com/JSH99/Web#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
